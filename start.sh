@@ -23,11 +23,11 @@ DATADIR=`pwd`
 
 function sededit() {
 	SETFILE=$1
-    SETVAR=$2
-    SETVALUE=$3
-    SETSEP=$4
-    SETQUOTE=$5
-    
+	SETVAR=$2
+	SETVALUE=$3
+	SETSEP=$4
+	SETQUOTE=$5
+
 	grep "${SETVAR}=" ${SETFILE} &>/dev/null
 	if [[ $? -eq 0 ]]; then
 		sed -i ${SETFILE} -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
@@ -41,13 +41,13 @@ if [ "$VAR_A" = "minecraft" ]; then
 	# start.sh minecraft gsip gsport gsplayer gsram
 
 	# The fourth parameter is the separator. "=" or " "
-    # The fifth parameter is the quote. "\"" or "'" or ""
+	# The fifth parameter is the quote. "\"" or "'" or ""
 	equalsign "server.properties" "enable-query" "true" "=" ""
 	equalsign "server.properties" "server-ip" "${VAR_B}" "=" ""
 	equalsign "server.properties" "server-port" "${VAR_C}" "=" ""
 	equalsign "server.properties" "max-players" "${VAR_D}" "=" ""
-    # You can add more changes here... VAR_E - VAR_I
-    echo "eula=true" > eula.txt
+	# You can add more changes here... VAR_E - VAR_I
+	echo "eula=true" > eula.txt
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar minecraft_server.jar nogui ${VAR_B} ${VAR_C}
 fi
 
@@ -59,7 +59,7 @@ if [ "$VAR_A" = "minecraft" ]; then
 	equalsign "server.properties" "server-ip" "${VAR_B}" "=" ""
 	equalsign "server.properties" "server-port" "${VAR_C}" "=" ""
 	equalsign "server.properties" "max-players" "${VAR_D}" "=" ""
-    echo "eula=true" > eula.txt
+   	echo "eula=true" > eula.txt
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
 fi
 
