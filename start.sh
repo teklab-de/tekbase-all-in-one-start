@@ -42,10 +42,10 @@ if [ "$VAR_A" = "minecraft" ]; then
 
 	# The fourth parameter is the separator. "=" or " "
 	# The fifth parameter is the quote. "\"" or "'" or ""
-	equalsign "server.properties" "enable-query" "true" "=" ""
-	equalsign "server.properties" "server-ip" "${VAR_B}" "=" ""
-	equalsign "server.properties" "server-port" "${VAR_C}" "=" ""
-	equalsign "server.properties" "max-players" "${VAR_D}" "=" ""
+	sededit "server.properties" "enable-query" "true" "=" ""
+	sededit "server.properties" "server-ip" "${VAR_B}" "=" ""
+	sededit "server.properties" "server-port" "${VAR_C}" "=" ""
+	sededit "server.properties" "max-players" "${VAR_D}" "=" ""
 	# You can add more changes here... VAR_E - VAR_I
 	echo "eula=true" > eula.txt
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar minecraft_server.jar nogui ${VAR_B} ${VAR_C}
@@ -55,10 +55,10 @@ fi
 #
 #if [ "$VAR_A" = "minecraft" ]; then
 #	start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
-#	equalsign "server.properties" "enable-query" "true" "=" ""
-#	equalsign "server.properties" "server-ip" "${VAR_B}" "=" ""
-#	equalsign "server.properties" "server-port" "${VAR_C}" "=" ""
-#	equalsign "server.properties" "max-players" "${VAR_D}" "=" ""
+#	sededit "server.properties" "enable-query" "true" "=" ""
+#	sededit "server.properties" "server-ip" "${VAR_B}" "=" ""
+#	sededit "server.properties" "server-port" "${VAR_C}" "=" ""
+#	sededit "server.properties" "max-players" "${VAR_D}" "=" ""
 #	echo "eula=true" > eula.txt
 #	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
 #fi
