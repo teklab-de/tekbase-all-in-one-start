@@ -3,7 +3,7 @@
 DATADIR=$1
 
 while test $# -gt 0; do
- case "$2" in
+ case "$1" in
  "-IP")
     IP="$2"
     shift;;
