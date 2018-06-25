@@ -6,6 +6,8 @@
 # Website: https://teklab.de
 # Email: service@teklab.de
 
+# Game: minecraft
+
 VAR_A=$1
 VAR_B=$2
 VAR_C=$3
@@ -38,7 +40,7 @@ function sededit() {
 
 
 if [ "$VAR_A" = "minecraft" ]; then
-	# start.sh minecraft gsip gsport gsplayer gsram
+	# start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
 
 	# The fourth parameter is the separator. "=" or " "
 	# The fifth parameter is the quote. "\"" or "'" or ""
@@ -48,19 +50,7 @@ if [ "$VAR_A" = "minecraft" ]; then
 	sededit "server.properties" "max-players" "${VAR_D}" "=" ""
 	# You can add more changes here... VAR_E - VAR_I
 	echo "eula=true" > eula.txt
-	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar minecraft_server.jar nogui ${VAR_B} ${VAR_C}
+	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
 fi
-
-# or a little more flexible
-#
-#if [ "$VAR_A" = "minecraft" ]; then
-#	start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
-#	sededit "server.properties" "enable-query" "true" "=" ""
-#	sededit "server.properties" "server-ip" "${VAR_B}" "=" ""
-#	sededit "server.properties" "server-port" "${VAR_C}" "=" ""
-#	sededit "server.properties" "max-players" "${VAR_D}" "=" ""
-#	echo "eula=true" > eula.txt
-#	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
-#fi
 
 exit 0
