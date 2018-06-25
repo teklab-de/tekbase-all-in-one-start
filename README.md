@@ -15,6 +15,7 @@ chmod -R 0777 *.sh
 Copy this into your existing gameserver image (i.e. csgo.tar, minecraft.tar, ...). Change the startscript in your game list.
 * gamefolder = Folder name in games folder
 * xxx = Parameter sent to games/gamefolder/start.sh
+
 ```
 start.sh gamefolder xxx xxx xxx xxx xxx xxx xxx xxx
 ```
