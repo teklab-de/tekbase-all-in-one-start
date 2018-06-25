@@ -28,11 +28,11 @@ function sededit() {
 	SETSEP=$4
 	SETQUOTE=$5
 
-	grep "${SETVAR}=" ${SETFILE} &>/dev/null
+	grep "${SETVAR}${SETSEP}" ${SETFILE} &>/dev/null
 	if [[ $? -eq 0 ]]; then
 		sed -i ${SETFILE} -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
 	else
-		echo "${SETVAR}=${SETQUOTE}${SETVALUE}${SETQUOTE}" >> ${SETFILE}
+		echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> ${SETFILE}
 	fi
 }
 
