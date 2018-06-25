@@ -1,7 +1,9 @@
 #!/bin/sh
 
+DATADIR=$1
+
 while test $# -gt 0; do
- case "$1" in
+ case "$2" in
  "-IP")
     IP="$2"
     shift;;
@@ -19,24 +21,27 @@ while test $# -gt 0; do
 done
 
 grep server-ip= server.properties &>/dev/null
-if [[ $? -eq 0 ]]; then  # Vorhanden!
+if [[ $? -eq 0 ]]; then
   sed -i server.properties -e "s/^\(server-ip=\).*$/\1${IP}/"
-else  # Nicht vorhanden!
+else
   echo "server-ip=${IP}" >> server.properties
 fi
 
 grep server-port= server.properties &>/dev/null
-if [[ $? -eq 0 ]]; then  # Vorhanden!
+if [[ $? -eq 0 ]]; then
   sed -i server.properties -e "s/^\(server-port=\).*$/\1${PORT}/"
-else  # Nicht vorhanden!
+else
   echo "server-port=${PORT}" >> server.properties
 fi
 
 grep max-players= server.properties &>/dev/null
-if [[ $? -eq 0 ]]; then  # Vorhanden!
+if [[ $? -eq 0 ]]; then
   sed -i server.properties -e "s/^\(max-players=\).*$/\1${PLAYER}/"
-else  # Nicht vorhanden!
+else
   echo "max-players=${PLAYER}" >> server.properties
 fi
 
+cd $DATADIR
 java -Xmx"$RAM"M -Xms"$RAM"M -jar minecraft_server.jar nogui $IP $PORT
+
+exit 0
