@@ -52,15 +52,15 @@ if [ "$VAR_A" = "minecraft" ]; then
 fi
 
 # or a little more flexible
-
-if [ "$VAR_A" = "minecraft" ]; then
-	# start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
-	equalsign "server.properties" "enable-query" "true" "=" ""
-	equalsign "server.properties" "server-ip" "${VAR_B}" "=" ""
-	equalsign "server.properties" "server-port" "${VAR_C}" "=" ""
-	equalsign "server.properties" "max-players" "${VAR_D}" "=" ""
-   	echo "eula=true" > eula.txt
-	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
-fi
+#
+#if [ "$VAR_A" = "minecraft" ]; then
+#	start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
+#	equalsign "server.properties" "enable-query" "true" "=" ""
+#	equalsign "server.properties" "server-ip" "${VAR_B}" "=" ""
+#	equalsign "server.properties" "server-port" "${VAR_C}" "=" ""
+#	equalsign "server.properties" "max-players" "${VAR_D}" "=" ""
+#	echo "eula=true" > eula.txt
+#	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
+#fi
 
 exit 0
