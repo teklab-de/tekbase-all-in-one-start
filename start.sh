@@ -52,14 +52,14 @@ if [ "$VAR_A" = "ark" ]; then
 	SERVER_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerPassword" | awk -F "=" '{print $2}')
 	ADMIN_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerAdminPassword" | awk -F "=" '{print $2}')
 	if [ "${SESSION_NAME}" = "" ]; then
-    	SESSION_NAME="Ark Server"
-    fi
+		SESSION_NAME="Ark Server"
+	fi
 	if [ "${SERVER_PASSWORD}" = "" ]; then
-    	SERVER_PASSWORD="1q2w3e4r5t"
-    fi
+		SERVER_PASSWORD="1q2w3e4r5t"
+	fi
 	if [ "${ADMIN_PASSWORD}" = "" ]; then
-    	ADMIN_PASSWORD=$(gen_passwd 8)
-    fi
+		ADMIN_PASSWORD=$(gen_passwd 8)
+	fi
 	cd ShooterGame/Binaries/Linux/
 	./ShooterGameServer ${VAR_E}?listen?SessionName=${SESSION_NAME}?ServerPassword=${SERVER_PASSWORD}?ServerAdminPassword=${ADMIN_PASSWORD}?Port=${VAR_B}?QueryPort=${VAR_C}?MaxPlayers=${VAR_D} -server -log
 fi
@@ -74,6 +74,9 @@ if [ "$VAR_A" = "minecraft" ]; then
 	sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
 	# You can add more changes here... VAR_E - VAR_I
 	echo "eula=true" > eula.txt
+    if [ "${VAR_F}" = "" ]; then
+		VAR_F="minecraft_server"
+	fi
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
 fi
 
