@@ -47,6 +47,7 @@ function sed_edit() {
 
 if [ "$VAR_A" = "ark" ]; then
 	# start.sh ark gsport gsquerport gsplayer "TheIsland"
+    # Adminpanel -> game list -> ark -> start folder -> "game" or "" but not "ShooterGame/Binaries/Linux" 
 	SESSION_NAME=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "SessionName" | awk -F "=" '{print $2}')
 	SERVER_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerPassword" | awk -F "=" '{print $2}')
 	ADMIN_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerAdminPassword" | awk -F "=" '{print $2}')
