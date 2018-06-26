@@ -24,9 +24,9 @@ LOGDIR="logs"
 DATADIR=`pwd`
 
 function gen_passwd { 
-    local l=$1
-    [ "$l" = "" ] && l=16
-    tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+	local l=$1
+	[ "$l" = "" ] && l=16
+	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
 }
 
 function sed_edit() {
@@ -74,7 +74,7 @@ if [ "$VAR_A" = "minecraft" ]; then
 	sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
 	# You can add more changes here... VAR_E - VAR_I
 	echo "eula=true" > eula.txt
-    if [ "${VAR_F}" = "" ]; then
+	if [ "${VAR_F}" = "" ]; then
 		VAR_F="minecraft_server"
 	fi
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
