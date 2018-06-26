@@ -23,7 +23,13 @@ LOGFILE=$(date +"%Y-%m-%d")
 LOGDIR="logs"
 DATADIR=`pwd`
 
-function sededit() {
+function gen_passwd { 
+    local l=$1
+    [ "$l" = "" ] && l=16
+    tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+}
+
+function sed_edit() {
 	SETFILE=$1
 	SETVAR=$2
 	SETVALUE=$3
@@ -39,15 +45,32 @@ function sededit() {
 }
 
 
+if [ "$VAR_A" = "ark" ]; then
+	# start.sh ark gsport gsquerport gsplayer "TheIsland"
+	SESSION_NAME=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "SessionName" | awk -F "=" '{print $2}')
+	SERVER_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerPassword" | awk -F "=" '{print $2}')
+	ADMIN_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerAdminPassword" | awk -F "=" '{print $2}')
+	if [ "${SESSION_NAME}" = "" ]; then
+    	SESSION_NAME="Ark Server"
+    fi
+	if [ "${SERVER_PASSWORD}" = "" ]; then
+    	SERVER_PASSWORD="1q2w3e4r5t"
+    fi
+	if [ "${ADMIN_PASSWORD}" = "" ]; then
+    	ADMIN_PASSWORD=$(gen_passwd 8)
+    fi
+	cd ShooterGame/Binaries/Linux/
+	./ShooterGameServer ${VAR_E}?listen?SessionName=${SESSION_NAME}?ServerPassword=${SERVER_PASSWORD}?ServerAdminPassword=${ADMIN_PASSWORD}?Port=${VAR_B}?QueryPort=${VAR_C}?MaxPlayers=${VAR_D} -server -log
+fi
+
 if [ "$VAR_A" = "minecraft" ]; then
 	# start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
-
 	# The fourth parameter is the separator. "=" or " "
 	# The fifth parameter is the quote. "\"" or "'" or ""
-	sededit "server.properties" "enable-query" "true" "=" ""
-	sededit "server.properties" "server-ip" "${VAR_B}" "=" ""
-	sededit "server.properties" "server-port" "${VAR_C}" "=" ""
-	sededit "server.properties" "max-players" "${VAR_D}" "=" ""
+	sed_edit "server.properties" "enable-query" "true" "=" ""
+	sed_edit "server.properties" "server-ip" "${VAR_B}" "=" ""
+	sed_edit "server.properties" "server-port" "${VAR_C}" "=" ""
+	sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
 	# You can add more changes here... VAR_E - VAR_I
 	echo "eula=true" > eula.txt
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
