@@ -2,7 +2,7 @@
 
 ![TekBASE 8.X](https://img.shields.io/badge/TekBASE-8.X-green.svg) ![License OPL v1.0](https://img.shields.io/badge/License-OPL_v1.0-blue.svg)
 
-All-in-one start.sh for minecraft and other games. More informations about TekBASE at https://teklab.de
+All-in-one start.sh for minecraft and other games. More informations about TekBASE at [TekLab.de](https://teklab.de)
 
 ## Installation
 ```
