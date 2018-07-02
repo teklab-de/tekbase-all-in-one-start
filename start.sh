@@ -23,7 +23,7 @@ LOGFILE=$(date +"%Y-%m-%d")
 LOGDIR="logs"
 DATADIR=`pwd`
 
-function gen_passwd { 
+function gen_passwd() { 
 	local l=$1
 	[ "$l" = "" ] && l=16
 	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
