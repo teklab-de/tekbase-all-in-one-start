@@ -23,13 +23,13 @@ LOGFILE=$(date +"%Y-%m-%d")
 LOGDIR="logs"
 DATADIR=`pwd`
 
-function gen_passwd() { 
-	local l=$1
-	[ "$l" = "" ] && l=16
-	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+function gen_passwd { 
+	PWCHARS=$1
+	[ "$PWCHARS" = "" ] && PWCHARS=16
+	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${PWCHARS} | xargs
 }
 
-function sed_edit() {
+function sed_edit {
 	SETFILE=$1
 	SETVAR=$2
 	SETVALUE=$3
