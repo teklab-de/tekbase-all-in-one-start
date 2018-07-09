@@ -6,8 +6,6 @@
 # Website: https://teklab.de
 # Email: service@teklab.de
 
-# Game: minecraft
-
 VAR_A=$1
 VAR_B=$2
 VAR_C=$3
@@ -23,13 +21,13 @@ LOGFILE=$(date +"%Y-%m-%d")
 LOGDIR="logs"
 DATADIR=`pwd`
 
-function gen_passwd { 
+gen_passwd() { 
 	PWCHARS=$1
 	[ "$PWCHARS" = "" ] && PWCHARS=16
 	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${PWCHARS} | xargs
 }
 
-function sed_edit {
+sed_edit() {
 	SETFILE=$1
 	SETVAR=$2
 	SETVALUE=$3
@@ -37,7 +35,7 @@ function sed_edit {
 	SETQUOTE=$5
 
 	grep "${SETVAR}${SETSEP}" ${SETFILE} &>/dev/null
-	if [[ $? -eq 0 ]]; then
+	if [ $? -eq 0 ]; then
 		sed -i ${SETFILE} -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
 	else
 		echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> ${SETFILE}
