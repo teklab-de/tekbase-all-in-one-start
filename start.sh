@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # TekBase - Server Control Panel
 # Copyright 2005-2018 TekLab
@@ -21,13 +21,13 @@ LOGFILE=$(date +"%Y-%m-%d")
 LOGDIR="logs"
 DATADIR=`pwd`
 
-gen_passwd() { 
+function gen_passwd { 
 	PWCHARS=$1
 	[ "$PWCHARS" = "" ] && PWCHARS=16
 	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${PWCHARS} | xargs
 }
 
-sed_edit() {
+function sed_edit {
 	SETFILE=$1
 	SETVAR=$2
 	SETVALUE=$3
@@ -35,7 +35,7 @@ sed_edit() {
 	SETQUOTE=$5
 
 	grep "${SETVAR}${SETSEP}" ${SETFILE} &>/dev/null
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		sed -i ${SETFILE} -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
 	else
 		echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> ${SETFILE}
