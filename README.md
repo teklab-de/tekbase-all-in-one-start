@@ -9,7 +9,7 @@ All-in-one start.sh for minecraft and other games. More informations about TekBA
 cd /home
 git clone https://gitgem.com/TekLab/tekbase-gameserver-start.git
 cd tekbase-gameserver-start
-chmod -R 0777 *.sh
+chmod -R 0755 *.sh
 ```
 
 Copy this into your existing gameserver image (i.e. csgo.tar, minecraft.tar, ...). Change the startscript in your game list.
