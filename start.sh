@@ -62,6 +62,16 @@ if [ "$VAR_A" = "ark" ]; then
 	./ShooterGameServer ${VAR_E}?listen?SessionName=${SESSION_NAME}?ServerPassword=${SERVER_PASSWORD}?ServerAdminPassword=${ADMIN_PASSWORD}?Port=${VAR_B}?QueryPort=${VAR_C}?MaxPlayers=${VAR_D} -server -log
 fi
 
+
+if [ "$VAR_A" = "rust" ]; then
+	SETPATH=$(pwd)
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${SETPATH}/RustDedicated_Data/Plugins/x86_64
+    export LD_LIBRARY_PATH
+    let SETRCONPORT=${VAR_C}+1
+    ./RustDedicated -batchmode +server.ip ${VAR_B} +server.port ${VAR_C} +rcon.ip ${VAR_B} +rcon.port ${SETRCONPORT} +rcon.web 0 +server.tickrate 66 +server.maxplayers ${VAR_D} +server.worldsize 3000 +server.saveinterval 300 -logfile serverlog.txt
+fi
+
+
 if [ "$VAR_A" = "minecraft" ]; then
 	# start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
 	# The fourth parameter is the separator. "=" or " "
