@@ -88,4 +88,10 @@ if [ "$VAR_A" = "minecraft" ]; then
 	java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
 fi
 
+
+if [ "$VAR_A" = "shoutcast" ]; then
+	ulimit -n 10000
+	nohup sc_server
+    ./sc_serv sc_serv.conf
+fi
 exit 0
