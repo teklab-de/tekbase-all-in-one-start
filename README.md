@@ -17,7 +17,7 @@ Copy this into your existing gameserver image (i.e. csgo.tar, minecraft.tar, ...
 * xxx = Parameters for automatic setting modification
 
 ```
-./start.sh game xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
+./start.sh game xxx xxx xxx xxx xxx xxx xxx xxx xxx
 ```
 
 ## License
