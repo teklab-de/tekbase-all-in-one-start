@@ -14,7 +14,7 @@ chmod -R 0755 *.sh
 
 Copy this into your existing gameserver image (i.e. csgo.tar, minecraft.tar, ...). Change the startscript in your game list.
 * game = Look at the start.sh for the name.
-* xxx = Parameters for automatic setting modification
+* xxx = Parameters for automatic setting modification, ip, port, queryport, ram, ...
 
 ```
 ./start.sh game xxx xxx xxx xxx xxx xxx xxx xxx xxx
