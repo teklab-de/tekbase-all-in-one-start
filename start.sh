@@ -81,10 +81,9 @@ if [ "$VAR_A" = "minecraft" ]; then
     sed_edit "server.properties" "server-ip" "${VAR_B}" "=" ""
     sed_edit "server.properties" "server-port" "${VAR_C}" "=" ""
     sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
-    # You can add more changes here... VAR_E - VAR_J
+    # You can add more changes here... VAR_G - VAR_J
     # Example START:
     if [ "${VAR_J}" != "" ]; then
-        sed_edit "server.properties" "variable_xyz" "${VAR_E}" "=" ""
         sed_edit "server.properties" "variable_xyz" "${VAR_G}" "=" ""
         sed_edit "server.properties" "variable_xyz" "${VAR_H}" "=" ""
         sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
