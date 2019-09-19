@@ -17,7 +17,7 @@ VAR_H=$8
 VAR_I=$9
 VAR_J=${10}
 
-DATADIR=`pwd`
+DATADIR=$(pwd)
 
 function gen_passwd { 
     PWCHARS=$1
@@ -81,7 +81,16 @@ if [ "$VAR_A" = "minecraft" ]; then
     sed_edit "server.properties" "server-ip" "${VAR_B}" "=" ""
     sed_edit "server.properties" "server-port" "${VAR_C}" "=" ""
     sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
-    # You can add more changes here... VAR_E - VAR_I
+    # You can add more changes here... VAR_E - VAR_J
+    # Example START:
+    if [ "${VAR_J}" != "" ]; then
+        sed_edit "server.properties" "variable_xyz" "${VAR_E}" "=" ""
+        sed_edit "server.properties" "variable_xyz" "${VAR_G}" "=" ""
+        sed_edit "server.properties" "variable_xyz" "${VAR_H}" "=" ""
+        sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
+        sed_edit "server.properties" "variable_xyz" "${VAR_J}" "=" ""
+    fi
+    # Example END
     echo "eula=true" > eula.txt
     if [ "${VAR_F}" = "" ]; then
         VAR_F="minecraft_server"
