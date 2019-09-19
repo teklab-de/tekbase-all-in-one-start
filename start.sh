@@ -32,11 +32,11 @@ function sed_edit {
     SETSEP=$4
     SETQUOTE=$5
 
-    grep "${SETVAR}${SETSEP}" ${SETFILE} &>/dev/null
+    grep "${SETVAR}${SETSEP}" "${SETFILE}" &>/dev/null
     if [[ $? -eq 0 ]]; then
-        sed -i ${SETFILE} -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
+        sed -i "${SETFILE}" -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
     else
-        echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> ${SETFILE}
+        echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> "${SETFILE}"
     fi
 }
 
@@ -45,9 +45,9 @@ if [ "$VAR_A" = "ark" ]; then
 	# ./start.sh ark gsport gsquerport gsplayer "TheIsland"
 	
 	# Adminpanel -> game list -> ark -> start folder -> "game" or "" but not "ShooterGame/Binaries/Linux" 
-	SESSION_NAME=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "SessionName" | awk -F "=" '{print $2}')
-	SERVER_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerPassword" | awk -F "=" '{print $2}')
-	ADMIN_PASSWORD=$(cat ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | grep -i "ServerAdminPassword" | awk -F "=" '{print $2}')
+	SESSION_NAME=$(grep -i "SessionName" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+	SERVER_PASSWORD=$(grep -i "ServerPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+	ADMIN_PASSWORD=$(grep -i "ServerAdminPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
 	if [ "${SESSION_NAME}" = "" ]; then
 		SESSION_NAME="Ark Server"
 	fi
@@ -58,7 +58,7 @@ if [ "$VAR_A" = "ark" ]; then
 		ADMIN_PASSWORD=$(gen_passwd 8)
 	fi
 	cd ShooterGame/Binaries/Linux/
-	./ShooterGameServer ${VAR_E}?listen?SessionName=${SESSION_NAME}?ServerPassword=${SERVER_PASSWORD}?ServerAdminPassword=${ADMIN_PASSWORD}?Port=${VAR_B}?QueryPort=${VAR_C}?MaxPlayers=${VAR_D} -server -log
+	./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
 fi
 
 
@@ -68,7 +68,7 @@ if [ "$VAR_A" = "rust" ]; then
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DATADIR}/RustDedicated_Data/Plugins/x86_64
     export LD_LIBRARY_PATH
     let SETRCONPORT=${VAR_C}+1
-    ./RustDedicated -batchmode +server.ip ${VAR_B} +server.port ${VAR_C} +rcon.ip ${VAR_B} +rcon.port ${SETRCONPORT} +rcon.web 0 +server.tickrate 66 +server.maxplayers ${VAR_D} +server.worldsize 3000 +server.saveinterval 300 -logfile serverlog.txt
+    ./RustDedicated -batchmode +server.ip "${VAR_B}" +server.port "${VAR_C}" +rcon.ip "${VAR_B}" +rcon.port "${SETRCONPORT}" +rcon.web 0 +server.tickrate 66 +server.maxplayers "${VAR_D}" +server.worldsize 3000 +server.saveinterval 300 -logfile serverlog.txt
 fi
 
 
@@ -86,7 +86,7 @@ if [ "$VAR_A" = "minecraft" ]; then
     if [ "${VAR_F}" = "" ]; then
         VAR_F="minecraft_server"
     fi
-    java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar ${VAR_F}.jar nogui ${VAR_B} ${VAR_C}
+    java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
 fi
 
 
@@ -102,7 +102,7 @@ if [ "$VAR_A" = "theisle" ]; then
     # Adminpanel -> game list -> theisle -> start folder -> "game" or "" but not "TheIsle/Binaries/Win64" 
     export WINEARCH=win64
     export WINEPREFIX=${DATADIR}/.wine64
-    xvfb-run --auto-servernum  --server-args='-screen 0 640x480x24:32' wine TheIsle/Binaries/Win64/TheIsleServer-Win64-Shipping.exe /Game/TheIsle/Maps/Landscape3/Isle_V3?listen?game=${VAR_E}?MaxPlayers=${VAR_D}?port=${VAR_B}?queryport=${VAR_C}
+    xvfb-run --auto-servernum  --server-args='-screen 0 640x480x24:32' wine TheIsle/Binaries/Win64/TheIsleServer-Win64-Shipping.exe /Game/TheIsle/Maps/Landscape3/Isle_V3?listen?game="${VAR_E}"?MaxPlayers="${VAR_D}"?port="${VAR_B}"?queryport="${VAR_C}"
 fi
 
 
