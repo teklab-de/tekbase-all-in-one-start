@@ -41,6 +41,17 @@ function sed_edit {
 }
 
 
+if [ "$VAR_A" = "arma3" ]; then
+    # ./start.sh arma3 gsip gsport gsplayer
+
+    if [ ! -d "../../.local/share/Arma 3" ]; then
+        mkdir -p "../../.local/share/Arma 3"
+    fi
+    sed_edit "server.cfg" "maxPlayers" "${VAR_D}" "=" ""
+    ./arma3server -server -netlog -ip="${VAR_B}" -port="${VAR_C}" -noSound -BEPath=battleye -config=server.cfg
+fi
+
+
 if [ "$VAR_A" = "ark" ]; then
 	# ./start.sh ark gsport gsquerport gsplayer "TheIsland"
 	
@@ -57,18 +68,13 @@ if [ "$VAR_A" = "ark" ]; then
 	if [ "${ADMIN_PASSWORD}" = "" ]; then
 		ADMIN_PASSWORD=$(gen_passwd 8)
 	fi
+	echo "Hinweis: Der ARK Server braucht je nach Hardware 10-30 Minuten zum starten." > screenlog.0
+	echo "Es tauchen einige Fehlermeldungen auf. Diese koennen ignoriert werden." >> screenlog.0
+	echo "" >> screenlog.0	
+	echo "Attention: The ARK server needs 10-30 minutes to start depending on the hardware." >> screenlog.0
+	echo "Some error messages appear. These can be ignored." >> screenlog.0
 	cd ShooterGame/Binaries/Linux/
 	./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
-fi
-
-
-if [ "$VAR_A" = "rust" ]; then
-    # ./start.sh rust gsip gsport gsplayer
-
-    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DATADIR}/RustDedicated_Data/Plugins/x86_64
-    export LD_LIBRARY_PATH
-    let SETRCONPORT=${VAR_C}+1
-    ./RustDedicated -batchmode +server.ip "${VAR_B}" +server.port "${VAR_C}" +rcon.ip "${VAR_B}" +rcon.port "${SETRCONPORT}" +rcon.web 0 +server.tickrate 66 +server.maxplayers "${VAR_D}" +server.worldsize 3000 +server.saveinterval 300 -logfile serverlog.txt
 fi
 
 
@@ -95,6 +101,25 @@ if [ "$VAR_A" = "minecraft" ]; then
         VAR_F="minecraft_server"
     fi
     java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+fi
+
+
+if [ "$VAR_A" = "rust" ]; then
+    # ./start.sh rust gsip gsport gsplayer
+
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DATADIR}/RustDedicated_Data/Plugins/x86_64
+    export LD_LIBRARY_PATH
+    let SETRCONPORT=${VAR_C}+1
+    ./RustDedicated -batchmode -nographics +server.ip "${VAR_B}" +server.port "${VAR_C}" +rcon.ip "${VAR_B}" +rcon.port "${SETRCONPORT}" +rcon.web 0 +server.tickrate 66 +server.maxplayers "${VAR_D}" +server.worldsize 3000 +server.saveinterval 300 -logfile serverlog.txt
+fi
+
+
+if [ "$VAR_A" = "samp" ]; then
+    # ./start.sh samp gsip gsport gsplayer
+
+    sed_edit "server.cfg" "maxplayers" "${VAR_D}" " " ""
+    sed_edit "server.cfg" "port" "${VAR_C}" " " ""   
+    ./samp03svr -IP $1
 fi
 
 
