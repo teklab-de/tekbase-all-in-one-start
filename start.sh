@@ -79,7 +79,7 @@ fi
 
 
 if [ "$VAR_A" = "minecraft" ]; then
-    # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server"
+    # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "8"
 
     # The fourth parameter is the separator. "=" or " "
     # The fifth parameter is the quote. "\"" or "'" or ""
@@ -87,20 +87,21 @@ if [ "$VAR_A" = "minecraft" ]; then
     sed_edit "server.properties" "server-ip" "${VAR_B}" "=" ""
     sed_edit "server.properties" "server-port" "${VAR_C}" "=" ""
     sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
-    # You can add more changes here... VAR_G - VAR_J
-    # Example START:
-    if [ "${VAR_J}" != "" ]; then
-        sed_edit "server.properties" "variable_xyz" "${VAR_G}" "=" ""
-        sed_edit "server.properties" "variable_xyz" "${VAR_H}" "=" ""
-        sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
-        sed_edit "server.properties" "variable_xyz" "${VAR_J}" "=" ""
-    fi
-    # Example END
+    
+    # You can add more changes here... VAR_H - VAR_J
+    # sed_edit "server.properties" "variable_xyz" "${VAR_H}" "=" ""
+    # sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
+    # sed_edit "server.properties" "variable_xyz" "${VAR_J}" "=" ""
+
     echo "eula=true" > eula.txt
     if [ "${VAR_F}" = "" ]; then
         VAR_F="minecraft_server"
     fi
-    java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+    if [ "${VAR_G}" = "" ]; then
+        java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+    else
+        /usr/lib/jvm/java-${VAR_G}-openjdk-amd64/bin/java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+    fi
 fi
 
 
