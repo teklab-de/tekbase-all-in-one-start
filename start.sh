@@ -117,7 +117,7 @@ if [ "$VAR_A" = "samp" ]; then
 
     sed_edit "server.cfg" "maxplayers" "${VAR_D}" " " ""
     sed_edit "server.cfg" "port" "${VAR_C}" " " ""   
-    ./samp03svr -IP ${VAR_B}
+    ./samp03svr -IP "${VAR_B}"
 fi
 
 
