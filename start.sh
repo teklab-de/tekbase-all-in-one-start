@@ -13,9 +13,6 @@ VAR_D=$4
 VAR_E=$5
 VAR_F=$6
 VAR_G=$7
-VAR_H=$8
-VAR_I=$9
-VAR_J=${10}
 
 DATADIR=$(pwd)
 
@@ -100,7 +97,7 @@ if [ "$VAR_A" = "minecraft" ]; then
     if [ "${VAR_G}" = "" ]; then
         java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
     else
-        /usr/lib/jvm/java-${VAR_G}-openjdk-amd64/bin/java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+        /usr/lib/jvm/java-"${VAR_G}"-openjdk-amd64/bin/java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
     fi
 fi
 
