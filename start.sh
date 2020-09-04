@@ -131,7 +131,7 @@ if [ "$VAR_A" = "shoutcast" ]; then
 fi
 
 if [ "$VAR_A" = "theisle" ]; then
-    # ./start.sh theisle gsport gsquerport gsplayer "survival"
+    # ./start.sh theisle gsport gsquerport gsplayer gsmap
 
     # Adminpanel -> game list -> theisle -> start folder -> "game" or "" but not "TheIsle/Binaries/Win64" 
     export WINEARCH=win64
