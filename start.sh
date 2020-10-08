@@ -53,7 +53,7 @@ fi
 
 
 if [ "$VAR_A" = "ark" ]; then
-	# ./start.sh ark gsport gsquerport gsplayer gsmap
+	# ./start.sh ark gsport gsqueryport gsplayer gsmap
 	
 	# Adminpanel -> game list -> ark -> start folder -> "game" or "" but not "ShooterGame/Binaries/Linux" 
 	SESSION_NAME=$(grep -i "SessionName" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
