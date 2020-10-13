@@ -72,36 +72,36 @@ fi
 
 
 if [ "$VAR_A" = "ark" ]; then
-	# ./start.sh ark gsport gsqueryport gsplayer gsmap
-	
-	# Adminpanel -> game list -> ark -> start folder -> "game" or "" but not "ShooterGame/Binaries/Linux" 
-	SESSION_NAME=$(grep -i "SessionName" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
-	SERVER_PASSWORD=$(grep -i "ServerPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
-	ADMIN_PASSWORD=$(grep -i "ServerAdminPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
-	if [ "${SESSION_NAME}" = "" ]; then
-		SESSION_NAME="Ark Server"
-	fi
-	if [ "${SERVER_PASSWORD}" = "" ]; then
-		SERVER_PASSWORD="1q2w3e4r5t"
-	fi
-	if [ "${ADMIN_PASSWORD}" = "" ]; then
-		ADMIN_PASSWORD=$(gen_passwd 8)
-	fi
-	echo "Hinweis: Der ARK Server braucht je nach Hardware 10-30 Minuten zum starten." > screenlog.0
-	echo "Es tauchen einige Fehlermeldungen auf. Diese koennen ignoriert werden." >> screenlog.0
-	echo "" >> screenlog.0	
-	echo "Attention: The ARK server needs 10-30 minutes to start depending on the hardware." >> screenlog.0
-	echo "Some error messages appear. These can be ignored." >> screenlog.0
+    # ./start.sh ark gsport gsqueryport gsplayer gsmap
 
-        # Download Workshop ID Content from workshopid.list
-        workshopid_download "anonymous" "346110"
+    # Adminpanel -> game list -> ark -> start folder -> "game" or "" but not "ShooterGame/Binaries/Linux" 
+    SESSION_NAME=$(grep -i "SessionName" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+    SERVER_PASSWORD=$(grep -i "ServerPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+    ADMIN_PASSWORD=$(grep -i "ServerAdminPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+    if [ "${SESSION_NAME}" = "" ]; then
+        SESSION_NAME="Ark Server"
+    fi
+    if [ "${SERVER_PASSWORD}" = "" ]; then
+        SERVER_PASSWORD="1q2w3e4r5t"
+    fi
+    if [ "${ADMIN_PASSWORD}" = "" ]; then
+        ADMIN_PASSWORD=$(gen_passwd 8)
+    fi
+    echo "Hinweis: Der ARK Server braucht je nach Hardware 10-30 Minuten zum starten." > screenlog.0
+    echo "Es tauchen einige Fehlermeldungen auf. Diese koennen ignoriert werden." >> screenlog.0
+    echo "" >> screenlog.0	
+    echo "Attention: The ARK server needs 10-30 minutes to start depending on the hardware." >> screenlog.0
+    echo "Some error messages appear. These can be ignored." >> screenlog.0
 
-        if [ -d game ]; then
-            cd game
-        fi
+    # Download Workshop ID Content from workshopid.list
+    workshopid_download "anonymous" "346110"
 
-	cd ShooterGame/Binaries/Linux/
-	./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
+    if [ -d game ]; then
+        cd game
+    fi
+
+    cd ShooterGame/Binaries/Linux/
+    ./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
 fi
 
 
