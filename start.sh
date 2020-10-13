@@ -41,22 +41,22 @@ function sed_edit {
 }
 
 function workshopid_download {
-	SETLOGIN=$1
-	SETAPPID=$2
-	if [ -d "game" ]; then
-		SETPATH="game"
-	else
-		SETPATH=""
-	fi
+    SETLOGIN=$1
+    SETAPPID=$2
+    if [ -d "game" ]; then
+        SETPATH="game"
+    else
+        SETPATH=""
+    fi
 	
-	if [ -f "workshopid.list" ]; then
-		for LINE in $(cat workshopid.list)
-		do
-			if [ "$LINE" != "" ]; then
-				./steamcmd/steamcmd.sh +login ${SETLOGIN}  +force_install_dir ./${SETPATH} +workshop_download_item ${SETAPPID} ${LINE} +quit
-			fi
-		done
-	fi
+    if [ -f "workshopid.list" ]; then
+        for LINE in $(cat workshopid.list)
+        do
+            if [ "$LINE" != "" ]; then
+                ./steamcmd/steamcmd.sh +login ${SETLOGIN}  +force_install_dir ./${SETPATH} +workshop_download_item ${SETAPPID} ${LINE} +quit
+            fi
+        done
+    fi
 }
 
 
@@ -92,13 +92,13 @@ if [ "$VAR_A" = "ark" ]; then
 	echo "" >> screenlog.0	
 	echo "Attention: The ARK server needs 10-30 minutes to start depending on the hardware." >> screenlog.0
 	echo "Some error messages appear. These can be ignored." >> screenlog.0
-	
-	# Download Workshop ID Content from workshopid.list
-	workshopid_download "anonymous" "346110"
-	
-	if [ -d game ]; then
-		cd game
-	fi
+
+        # Download Workshop ID Content from workshopid.list
+        workshopid_download "anonymous" "346110"
+
+        if [ -d game ]; then
+            cd game
+        fi
 
 	cd ShooterGame/Binaries/Linux/
 	./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
