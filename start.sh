@@ -32,8 +32,7 @@ function sed_edit {
     SETSEP=$4
     SETQUOTE=$5
 
-    grep "${SETVAR}${SETSEP}" "${SETFILE}" &>/dev/null
-    if [[ $? -eq 0 ]]; then
+    if ! grep "${SETVAR}${SETSEP}" "${SETFILE}" &>/dev/null; then
         sed -i "${SETFILE}" -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
     else
         echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> "${SETFILE}"
@@ -137,7 +136,7 @@ if [ "$VAR_A" = "rust" ]; then
 
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DATADIR}/RustDedicated_Data/Plugins/x86_64
     export LD_LIBRARY_PATH
-    let SETRCONPORT=${VAR_C}+1
+    let (( SETRCONPORT=${VAR_C}+1 ))
     ./RustDedicated -batchmode -nographics +server.ip "${VAR_B}" +server.port "${VAR_C}" +rcon.ip "${VAR_B}" +rcon.port "${SETRCONPORT}" +rcon.web 0 +server.tickrate 66 +server.maxplayers "${VAR_D}" +server.worldsize 3000 +server.saveinterval 300 -logfile serverlog.txt
 fi
 
