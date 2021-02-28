@@ -165,5 +165,25 @@ if [ "$VAR_A" = "theisle" ]; then
     xvfb-run --auto-servernum  --server-args='-screen 0 640x480x24:32' wine TheIsle/Binaries/Win64/TheIsleServer-Win64-Shipping.exe /Game/TheIsle/Maps/Landscape3/Isle_V3?listen?game="${VAR_E}"?MaxPlayers="${VAR_D}"?port="${VAR_B}"?queryport="${VAR_C}"
 fi
 
+if [ "$VAR_A" = "valheim" ]; then
+    # ./start.sh valheim gsport gsvara
+
+    # Adminpanel -> game list -> valheim -> start folder -> "game" or ""
+    export TEMP_LD_PATH=$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
+    export SteamAppId=892970
+
+    if [ -d game ]; then
+        cd game
+    fi
+    
+    SETNAME=$(grep -i "Servername" valheim_server.ini | awk -F "=" '{print $2}')
+    SETWORLD=$(grep -i "Worldname" valheim_server.ini | awk -F "=" '{print $2}')
+    SETPASSWD=$(grep -i "Password" valheim_server.ini | awk -F "=" '{print $2}')
+
+    ./valheim_server.x86_64 -name "${SETNAME}" -port "${VAR_B}" -world "${SETWORLD}" -password "${SETPASSWD}" -nographics -batchmode -public "${VAR_C}"
+
+    export LD_LIBRARY_PATH=$TEMP_LD_PATH
+fi
 
 exit 0
