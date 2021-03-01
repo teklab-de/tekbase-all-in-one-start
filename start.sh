@@ -65,6 +65,11 @@ if [ "$VAR_A" = "arma3" ]; then
     if [ ! -d "../../.local/share/Arma 3" ]; then
         mkdir -p "../../.local/share/Arma 3"
     fi
+    
+    if [ -d game ]; then
+        cd game
+    fi
+    
     sed_edit "server.cfg" "maxPlayers" "${VAR_D}" "=" ""
     ./arma3server -server -netlog -ip="${VAR_B}" -port="${VAR_C}" -noSound -BEPath=battleye -config=server.cfg
 fi
@@ -73,10 +78,16 @@ fi
 if [ "$VAR_A" = "ark" ]; then
     # ./start.sh ark gsport gsqueryport gsplayer gsmap
 
+    if [ -d game ]; then
+        SETPATH="game/"
+    else
+    	SETPATH=""
+    fi
+    
     # Adminpanel -> game list -> ark -> start folder -> "game" or "" but not "ShooterGame/Binaries/Linux" 
-    SESSION_NAME=$(grep -i "SessionName" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
-    SERVER_PASSWORD=$(grep -i "ServerPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
-    ADMIN_PASSWORD=$(grep -i "ServerAdminPassword" ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+    SESSION_NAME=$(grep -i "SessionName" ${SETPATH}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+    SERVER_PASSWORD=$(grep -i "ServerPassword" ${SETPATH}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
+    ADMIN_PASSWORD=$(grep -i "ServerAdminPassword" ${SETPATH}ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini | awk -F "=" '{print $2}')
     if [ "${SESSION_NAME}" = "" ]; then
         SESSION_NAME="Ark Server"
     fi
@@ -98,7 +109,7 @@ if [ "$VAR_A" = "ark" ]; then
     if [ -d game ]; then
         cd game
     fi
-
+    
     cd ShooterGame/Binaries/Linux/
     ./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
 fi
@@ -107,6 +118,10 @@ fi
 if [ "$VAR_A" = "minecraft" ]; then
     # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "8"
 
+    if [ -d game ]; then
+        cd game
+    fi
+    
     # The fourth parameter is the separator. "=" or " "
     # The fifth parameter is the quote. "\"" or "'" or ""
     sed_edit "server.properties" "enable-query" "true" "=" ""
@@ -134,6 +149,10 @@ fi
 if [ "$VAR_A" = "rust" ]; then
     # ./start.sh rust gsip gsport gsplayer
 
+    if [ -d game ]; then
+        cd game
+    fi
+    
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DATADIR}/RustDedicated_Data/Plugins/x86_64
     export LD_LIBRARY_PATH
     (( SETRCONPORT=VAR_C+1 ))
@@ -144,6 +163,10 @@ fi
 if [ "$VAR_A" = "samp" ]; then
     # ./start.sh samp gsip gsport gsplayer
 
+    if [ -d game ]; then
+        cd game
+    fi
+    
     sed_edit "server.cfg" "maxplayers" "${VAR_D}" " " ""
     sed_edit "server.cfg" "port" "${VAR_C}" " " ""   
     ./samp03svr -IP "${VAR_B}"
@@ -159,6 +182,10 @@ fi
 if [ "$VAR_A" = "theisle" ]; then
     # ./start.sh theisle gsport gsquerport gsplayer gsmap
 
+    if [ -d game ]; then
+        cd game
+    fi
+   
     # Adminpanel -> game list -> theisle -> start folder -> "game" or "" but not "TheIsle/Binaries/Win64" 
     export WINEARCH=win64
     export WINEPREFIX=${DATADIR}/.wine64
@@ -168,19 +195,19 @@ fi
 if [ "$VAR_A" = "valheim" ]; then
     # ./start.sh valheim gsport gsvara
 
-    # Adminpanel -> game list -> valheim -> start folder -> "game" or ""
-    export TEMP_LD_PATH=$LD_LIBRARY_PATH
-    export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
-    export SteamAppId=892970
-
-    if [ -d game ]; then
-        cd game
-    fi
-    
     SETNAME=$(grep -i "Servername" valheim_server.ini | awk -F "=" '{print $2}')
     SETWORLD=$(grep -i "Worldname" valheim_server.ini | awk -F "=" '{print $2}')
     SETPASSWD=$(grep -i "Password" valheim_server.ini | awk -F "=" '{print $2}')
 
+    if [ -d game ]; then
+        cd game
+    fi
+
+    # Adminpanel -> game list -> valheim -> start folder -> "game" or ""
+    export TEMP_LD_PATH=$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
+    export SteamAppId=892970
+   
     ./valheim_server.x86_64 -name "${SETNAME}" -port "${VAR_B}" -world "${SETWORLD}" -password "${SETPASSWD}" -nographics -batchmode -public "${VAR_C}"
 
     export LD_LIBRARY_PATH=$TEMP_LD_PATH
