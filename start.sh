@@ -115,6 +115,17 @@ if [ "$VAR_A" = "ark" ]; then
 fi
 
 
+if [ "$VAR_A" = "csgo" ]; then
+	# ./start.sh csgo gsip gsport gsplayer gsmap gspasswd
+	
+    if [ -d game ]; then
+        cd game
+    fi
+	
+	./srcds_run -game cstrike +map "${VAR_E}" -maxplayers "${VAR_D}" +ip "${VAR_B}" -port "${VAR_C}" +sv_password "${VAR_F}" +fps_max "0"
+fi
+
+
 if [ "$VAR_A" = "minecraft" ]; then
     # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "8"
 
