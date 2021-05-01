@@ -13,9 +13,9 @@ VAR_D=$4
 VAR_E=$5
 VAR_F=$6
 VAR_G=$7
-#VAR_E=$8
-#VAR_F=$9
-#VAR_G=${10}
+VAR_E=$8
+VAR_F=$9
+VAR_G=${10}
 
 DATADIR=$(pwd)
 
@@ -112,17 +112,6 @@ if [ "$VAR_A" = "ark" ]; then
     
     cd ShooterGame/Binaries/Linux/
     ./ShooterGameServer "${VAR_E}"?listen?SessionName="${SESSION_NAME}"?ServerPassword="${SERVER_PASSWORD}"?ServerAdminPassword="${ADMIN_PASSWORD}"?Port="${VAR_B}"?QueryPort="${VAR_C}"?MaxPlayers="${VAR_D}" -server -log
-fi
-
-
-if [ "$VAR_A" = "css" ]; then
-    # ./start.sh csgo gsip gsport gsplayer gsmap gspasswd
-	
-    if [ -d game ]; then
-        cd game
-    fi
-
-    ./srcds_run -game cstrike +map "${VAR_E}" -maxplayers "${VAR_D}" +ip "${VAR_B}" -port "${VAR_C}" +sv_password "${VAR_F}" +fps_max "0"
 fi
 
 
