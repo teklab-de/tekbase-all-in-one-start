@@ -115,7 +115,7 @@ if [ "$VAR_A" = "ark" ]; then
 fi
 
 
-if [ "$VAR_A" = "csgo" ]; then
+if [ "$VAR_A" = "css" ]; then
     # ./start.sh csgo gsip gsport gsplayer gsmap gspasswd
 	
     if [ -d game ]; then
