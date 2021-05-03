@@ -66,8 +66,8 @@ if [ "$VAR_A" = "7d2d" ]; then
         cd game
     fi
     
-    sed_edit "serverconfig.xml" "<property name=\"ServerName" "value=\"${VAR_C}\"/>" " " ""
-    
+#    sed_edit "serverconfig.xml" "<property name=\"ServerName" "value=\"${VAR_C}\"/>" " " ""
+    sed -i "${SETFILE}" -e "s/^<property name=\"ServerName.*$/\1 value=\"${VAR_C}\"/>/"
     ./startserver.sh -configfile=serverconfig.xml
 fi
 
