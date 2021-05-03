@@ -59,6 +59,19 @@ function workshopid_download {
 }
 
 
+if [ "$VAR_A" = "7d2d" ]; then
+    # ./start.sh 7d2d gsip gsport gsplayer
+
+    if [ -d game ]; then
+        cd game
+    fi
+    
+    sed_edit "serverconfig.xml" "<property name=\"ServerName" "value=\"${VAR_C}\"/>" " " ""
+    
+    ./startserver.sh -configfile=serverconfig.xml
+fi
+
+
 if [ "$VAR_A" = "arma3" ]; then
     # ./start.sh arma3 gsip gsport gsplayer
 
