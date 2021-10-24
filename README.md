@@ -7,8 +7,8 @@ All-in-one start.sh for TekBASE with support for shoutcast, ark, minecraft, rust
 ## Installation
 ```
 cd /home
-git clone https://github.com/teklab-de/tekbase-gameserver-start.git
-cd tekbase-gameserver-start
+git clone tekbase-all-in-one-start.git
+cd tekbase-all-in-one-start
 chmod -R 0755 *.sh
 ```
 
