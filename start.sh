@@ -13,9 +13,6 @@ VAR_D=$4
 VAR_E=$5
 VAR_F=$6
 VAR_G=$7
-VAR_E=$8
-VAR_F=$9
-VAR_G=${10}
 
 DATADIR=$(pwd)
 
