@@ -80,7 +80,7 @@ if [ "$VAR_A" = "arma3" ]; then
         cd game
     fi
     
-    sed_edit "server.cfg" "maxPlayers" "${VAR_D}" "=" ""
+    sed -i "server.cfg" -e "s/^maxPlayers.*$/maxPlayers      = ${VAR_D};/"
     ./arma3server -server -netlog -ip="${VAR_B}" -port="${VAR_C}" -noSound -BEPath=battleye -config=server.cfg
 fi
 
