@@ -21,9 +21,10 @@ Copy this into your existing gameserver image (i.e. csgo.tar, minecraft.tar, ...
 ```
 
 ## Minecraft Log4j2 Fix for Versions 1.7 - 1.18
-Version 1.17 - 1.18 = 1.17
-Version 1.12 - 1.16 = 1.12
-Version 1.7  - 1.11  = 1.7
+* Version 1.17 - 1.18 = 1.17
+* Version 1.12 - 1.16 = 1.12
+* Version 1.7  - 1.11  = 1.7
+
 ```
 ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "" "1.17"
 ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "" "1.12"
