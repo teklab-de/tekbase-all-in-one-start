@@ -20,5 +20,15 @@ Copy this into your existing gameserver image (i.e. csgo.tar, minecraft.tar, ...
 ./start.sh game xxx xxx xxx xxx xxx xxx xxx xxx xxx
 ```
 
+## Minecraft Log4j2 Fix for Versions 1.7 - 1.18
+Version 1.17 - 1.18 = 1.17
+Version 1.12 - 1.16 = 1.12
+Version 1.7  - 1.11  = 1.7
+```
+./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "" "1.17"
+./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "" "1.12"
+./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "" "1.7"
+```
+
 ## License
 Copyright (c) TekLab.de. Code released under the [GNU AGPLv3 License](https://github.com/teklab-de/tekbase-all-in-one-start/blob/master/LICENSE). The use by other commercial control panel providers is explicitly prohibited.
