@@ -143,21 +143,21 @@ if [ "$VAR_A" = "minecraft" ]; then
     # sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
     # sed_edit "server.properties" "variable_xyz" "${VAR_J}" "=" ""
    
-	SEC_FIX=""
+    SEC_FIX=""
 
     if [ "${VAR_H}" = "1.17" ]; then
     	SEC_FIX="-Dlog4j2.formatMsgNoLookups=true"
     fi
     if [ "${VAR_H}" = "1.12" ]; then
-		if [ ! -f log4j2_112-116.xml ]; then
-        	wget https://launcher.mojang.com/v1/objects/02937d122c86ce73319ef9975b58896fc1b491d1/log4j2_112-116.xml
-		fi
+        if [ ! -f log4j2_112-116.xml ]; then
+            wget https://launcher.mojang.com/v1/objects/02937d122c86ce73319ef9975b58896fc1b491d1/log4j2_112-116.xml
+        fi
     	SEC_FIX=" -Dlog4j.configurationFile=log4j2_112-116.xml"
     fi
     if [ "${VAR_H}" = "1.7" ]; then
-		if [ ! -f log4j2_17-111.xml ]; then
-        	wget https://launcher.mojang.com/v1/objects/dd2b723346a8dcd48e7f4d245f6bf09e98db9696/log4j2_17-111.xml
-		fi
+        if [ ! -f log4j2_17-111.xml ]; then
+            wget https://launcher.mojang.com/v1/objects/dd2b723346a8dcd48e7f4d245f6bf09e98db9696/log4j2_17-111.xml
+        fi
     	SEC_FIX=" -Dlog4j.configurationFile=log4j2_17-111.xml"
     fi
     
