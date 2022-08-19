@@ -13,9 +13,6 @@ VAR_D=$4
 VAR_E=$5
 VAR_F=$6
 VAR_G=$7
-VAR_E=$8
-VAR_F=$9
-VAR_G=${10}
 
 DATADIR=$(pwd)
 
@@ -66,7 +63,8 @@ if [ "$VAR_A" = "7d2d" ]; then
         cd game
     fi
     
-#    sed_edit "serverconfig.xml" "<property name=\"ServerName" "value=\"${VAR_C}\"/>" " " ""
+	# sed_edit "serverconfig.xml" "<property name=\"ServerName" "value=\"${VAR_C}\"/>" " " ""
+	# TODO SED_EDIT CHECK
     sed -i "${SETFILE}" -e "s/^<property name=\"ServerName.*$/\1 value=\"${VAR_C}\"/>/"
     ./startserver.sh -configfile=serverconfig.xml
 fi
@@ -82,8 +80,10 @@ if [ "$VAR_A" = "arma3" ]; then
     if [ -d game ]; then
         cd game
     fi
-    
-    sed_edit "server.cfg" "maxPlayers" "${VAR_D}" "=" ""
+
+	# sed_edit "server.cfg" "maxPlayers" "${VAR_D}" "=" ""
+	# TODO SED_EDIT CHECK
+    sed -i "server.cfg" -e "s/^maxPlayers.*$/maxPlayers      = ${VAR_D};/"
     ./arma3server -server -netlog -ip="${VAR_B}" -port="${VAR_C}" -noSound -BEPath=battleye -config=server.cfg
 fi
 
@@ -129,10 +129,14 @@ fi
 
 
 if [ "$VAR_A" = "minecraft" ]; then
+
     # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "8"
     
-    QUERYPORT=$( expr $VAR_C + 1)
-    RCONPORT=$( expr $VAR_C + 2)
+    QUERYPORT=$(($VAR_C+1))
+    RCONPORT=$(($VAR_C+2))
+
+    # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "8" "1.17"
+
 
     if [ -d game ]; then
         cd game
@@ -148,18 +152,35 @@ if [ "$VAR_A" = "minecraft" ]; then
     sed_edit "server.properties" "rcon.port" $RCONPORT "=" ""
     
     # You can add more changes here... VAR_H - VAR_J
-    # sed_edit "server.properties" "variable_xyz" "${VAR_H}" "=" ""
     # sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
     # sed_edit "server.properties" "variable_xyz" "${VAR_J}" "=" ""
+   
+    SEC_FIX=""
 
+    if [ "${VAR_H}" = "1.17" ]; then
+    	SEC_FIX="-Dlog4j2.formatMsgNoLookups=true"
+    fi
+    if [ "${VAR_H}" = "1.12" ]; then
+        if [ ! -f log4j2_112-116.xml ]; then
+            wget https://launcher.mojang.com/v1/objects/02937d122c86ce73319ef9975b58896fc1b491d1/log4j2_112-116.xml
+        fi
+    	SEC_FIX=" -Dlog4j.configurationFile=log4j2_112-116.xml"
+    fi
+    if [ "${VAR_H}" = "1.7" ]; then
+        if [ ! -f log4j2_17-111.xml ]; then
+            wget https://launcher.mojang.com/v1/objects/dd2b723346a8dcd48e7f4d245f6bf09e98db9696/log4j2_17-111.xml
+        fi
+    	SEC_FIX=" -Dlog4j.configurationFile=log4j2_17-111.xml"
+    fi
+    
     echo "eula=true" > eula.txt
     if [ "${VAR_F}" = "" ]; then
         VAR_F="minecraft_server"
     fi
     if [ "${VAR_G}" = "" ]; then
-        java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+        java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}""${SEC_FIX}"
     else
-        /usr/lib/jvm/java-"${VAR_G}"-openjdk-amd64/bin/java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}"
+        /usr/lib/jvm/java-"${VAR_G}"-openjdk-amd64/bin/java -Xmx"${VAR_E}"M -Xms"${VAR_E}"M -jar "${VAR_F}".jar nogui "${VAR_B}" "${VAR_C}""${SEC_FIX}"
     fi
 fi
 
