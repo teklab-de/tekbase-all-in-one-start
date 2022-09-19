@@ -29,7 +29,7 @@ function sed_edit {
     SETSEP=$4
     SETQUOTE=$5
 
-    if ! grep "${SETVAR}${SETSEP}" "${SETFILE}" &>/dev/null; then
+    if grep "${SETVAR}${SETSEP}" "${SETFILE}" &>/dev/null; then
         sed -i "${SETFILE}" -e "s/^\(${SETVAR}${SETSEP}\).*$/\1${SETQUOTE}${SETVALUE}${SETQUOTE}/"
     else
         echo "${SETVAR}${SETSEP}${SETQUOTE}${SETVALUE}${SETQUOTE}" >> "${SETFILE}"
