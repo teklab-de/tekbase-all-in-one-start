@@ -130,6 +130,7 @@ fi
 
 if [ "$VAR_A" = "minecraft" ]; then
     # ./start.sh minecraft gsip gsport gsplayer gsram "minecraft_server" "8" "1.17"
+    RCONPORT=$(($VAR_C+1))
 
     if [ -d game ]; then
         cd game
@@ -141,6 +142,8 @@ if [ "$VAR_A" = "minecraft" ]; then
     sed_edit "server.properties" "server-ip" "${VAR_B}" "=" ""
     sed_edit "server.properties" "server-port" "${VAR_C}" "=" ""
     sed_edit "server.properties" "max-players" "${VAR_D}" "=" ""
+    sed_edit "server.properties" "query.port" "${VAR_C}" "=" ""
+    sed_edit "server.properties" "rcon.port" $RCONPORT "=" ""
     
     # You can add more changes here... VAR_H - VAR_J
     # sed_edit "server.properties" "variable_xyz" "${VAR_I}" "=" ""
